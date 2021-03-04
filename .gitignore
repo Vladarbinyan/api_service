@@ -1,0 +1,6 @@
+/venv/
+.secrets.*
+.gitignore
+/service/users/migrations/
+*.sqlite3
+.idea/*
