@@ -4,3 +4,5 @@
 /service/users/migrations/
 *.sqlite3
 .idea/*
+.bin
+npx
