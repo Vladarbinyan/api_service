@@ -1,10 +1,11 @@
 import React from "react";
+import { Table } from 'antd';
 
 const UserItem = ({user}) => {
     return (
         <tr>
             <td>
-                {user.Username}
+                {user.username}
             </td>
             <td>
                 {user.firstname}
@@ -32,7 +33,7 @@ const UserList = ({users}) => {
                 Last name
             </th>
             <th>
-                email
+                Email address
             </th>
             {users.map((users) => <UserItem user={users} /> )}
         </table>
