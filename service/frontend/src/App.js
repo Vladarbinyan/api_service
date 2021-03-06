@@ -1,17 +1,20 @@
 import React from "react";
-import './App.css';
+import {Layout} from 'antd';
 import UserList from "./components/User";
+import TextFooter from "./components/TextFooter";
+import MainMenu from "./components/Menu";
 import axios from "axios";
 import * as url from "url";
-import {Layout, } from "antd";
 
-const { Header, Footer, Content } = Layout;
+
+const {Content} = Layout;
+
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'users': []
+            'users': [],
         }
     }
 
@@ -21,7 +24,7 @@ class App extends React.Component {
                     const users = response.data
                     this.setState(
                         {
-                            'users': users
+                            'users': users,
                         }
                     )
                 }
@@ -30,15 +33,17 @@ class App extends React.Component {
 
     render() {
         return (
-            <Layout>
-                <Header>Menu</Header>
-                <Content>
-                    <div>
-                        <UserList users={this.state.users}/>
-                    </div>
-                </Content>
-                <Footer>Footer</Footer>
-            </Layout>
+            <div>
+                <div>
+                    <MainMenu selected_key={"1"}/>
+                </div>
+                <div>
+                    <UserList users={this.state.users}/>
+                </div>
+                <div>
+                    <TextFooter footer='API SERVICE 2021'/>
+                </div>
+            </div>
         )
     }
 }
