@@ -11,3 +11,6 @@ class User(models.Model):
     lastname = models.CharField(max_length=64)
     email = models.EmailField(unique=True)
 
+    def __str__(self):
+        return f'{self.username}'
+

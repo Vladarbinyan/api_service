@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # My
     'users',
+    'todo_app',
 ]
 
 MIDDLEWARE = [
@@ -127,8 +128,10 @@ CORS_ALLOWED_ORIGINS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+
     ]
 }
 

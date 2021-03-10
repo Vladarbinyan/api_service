@@ -6,6 +6,7 @@ from users.models import User
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
+        fields = ['username']
 
 
 class ProjectSerializer(ModelSerializer):
@@ -13,13 +14,14 @@ class ProjectSerializer(ModelSerializer):
 
     class Meta:
         model = Project
-        fields = '__all__'
+        exclude = ['uuid']
 
 
 class TodoSerializer(ModelSerializer):
-    projects = ProjectSerializer()
-    users = UserSerializer()
+    project = ProjectSerializer()
+    user = UserSerializer()
 
     class Meta:
         model = Todo
-        fields = '__all__'
+        fields = ['project', 'user', 'todo', 'text', 'is_active', 'create_date', 'update_date', ]
+
