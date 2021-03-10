@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
+from users.models import User
 from django.core.management.base import BaseCommand
-from random_username.generate import generate_username
-import names
+from mimesis import Person
 
 
 class Command(BaseCommand):
@@ -12,25 +11,26 @@ class Command(BaseCommand):
         parser.add_argument('-a', '--admin', action='store_true', help='Create an admin account')
 
     def handle(self, *args, **kwargs):
+        person = Person('ru')
         total = kwargs['total']
         admin = kwargs['admin']
         for i in range(total):
-            password = User.objects.make_random_password()
             if admin:
-                user = User.objects.create_superuser(
-                    username=generate_username()[0],
-                    first_name=names.get_first_name(),
-                    last_name=names.get_last_name(),
-                    email='',
-                    password=password,
+                user = User(
+                    username=person.username(),
+                    first_name=person.first_name(),
+                    last_name=person.last_name(),
+                    email=person.email(),
+                    is_superuser=True,
                 )
-                print(f'Create new Superuser: {user} and password: {password}')
+                user.save()
+                print(f'Create new Superuser: {user}')
             else:
-                user = User.objects.create_user(
-                    username=generate_username()[0],
-                    first_name=names.get_first_name(),
-                    last_name=names.get_last_name(),
-                    email='',
-                    password=password,
+                user = User(
+                    username=person.username(),
+                    first_name=person.first_name(),
+                    last_name=person.last_name(),
+                    email=person.email(),
                 )
-                print(f'Create new user: {user} and password: {password}')
+                user.save()
+                print(f'Create new user: {user}')
