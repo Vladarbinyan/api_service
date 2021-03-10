@@ -1,13 +1,10 @@
 import React from "react";
-import {Layout} from 'antd';
+
 import UserList from "./components/User";
 import TextFooter from "./components/TextFooter";
 import MainMenu from "./components/Menu";
 import axios from "axios";
-import * as url from "url";
 
-
-const {Content} = Layout;
 
 
 class App extends React.Component {
