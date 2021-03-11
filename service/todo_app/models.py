@@ -20,7 +20,7 @@ class Project(models.Model):
 class Todo(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     todo = models.CharField(max_length=128)
     text = models.TextField(max_length=512, blank=True)
     is_active = models.BooleanField(default=True)
