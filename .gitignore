@@ -6,3 +6,4 @@
 npx
 service/antd-demo
 migrations/
+service/frontend/.gitignore
