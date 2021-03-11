@@ -7,8 +7,8 @@ const UserList = ({users}) => {
     return (
         <Table dataSource={users}>
             <Column title="Username" dataIndex="username" key="username"/>
-            <Column title="First Name" dataIndex="firstname" key="firstname"/>
-            <Column title="Last Name" dataIndex="lastname" key="lastname"/>
+            <Column title="First Name" dataIndex="first_name" key="first_name"/>
+            <Column title="Last Name" dataIndex="last_name" key="last_name"/>
             <Column title="Email address" dataIndex="email" key="email"/>
         </Table>
     )

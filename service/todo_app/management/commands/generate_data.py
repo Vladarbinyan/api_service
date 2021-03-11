@@ -28,7 +28,5 @@ class Command(BaseCommand):
                             project=project,
                             user=User.objects.get(uuid=random.choice(User.objects.values_list('uuid'))[0]),
                             )
-                # try:
                 todo.save()
-                # except ValueError:
-                print(todo, todo.user)
+
