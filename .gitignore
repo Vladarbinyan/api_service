@@ -1,6 +1,8 @@
 /venv/
 .secrets.*
-.gitignore
 /service/users/migrations/
 *.sqlite3
 .idea/*
+.bin
+npx
+service/antd-demo
