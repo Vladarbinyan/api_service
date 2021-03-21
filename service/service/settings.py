@@ -9,7 +9,28 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'basic': {
+            'format': '\n%(asctime)s - %(levelname)s - %(module)s - %(message)s'
+        }
+    },
+    'handlers': {
+        'basic': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'basic'
+        }
+    },
+    'loggers': {
+        'service_log': {
+            'level': 'INFO',
+            'handlers': ['basic']
+        },
+    }
+}
 
 from pathlib import Path
 
