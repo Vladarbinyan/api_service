@@ -6,13 +6,8 @@ const {Column} = Table;
 
 const Project = ({projects}) => {
     return (
-        <Table dataSource={projects} rowKey={el => el.project_id}>
+        <Table dataSource={projects}>
             <Column title="Project" dataIndex="title" key="title"/>
-            <Column
-                title="id"
-                key="id"
-                render={(text, record) => (<div>{}</div>)}
-            />
         </Table>
     )
 }

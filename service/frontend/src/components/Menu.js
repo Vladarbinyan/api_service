@@ -11,7 +11,7 @@ const MainMenu = ({selected_key}) => {
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[selected_key]}>
                 <Menu.Item key="1"><Link to='/users'>Users</Link></Menu.Item>
                 <Menu.Item key="2"><Link to='/projects'>Projects</Link></Menu.Item>
-                <Menu.Item key="3"><Link to='/todo'>"TODO"</Link></Menu.Item>
+                <Menu.Item key="3"><Link to='/todo'>TODO</Link></Menu.Item>
             </Menu>
         </Header>
     )
