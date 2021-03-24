@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # My
     'users',
+    'todo_app',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,15 @@ STATIC_URL = '/static/'
 CORS_ALLOWED_ORIGINS = [
    "http://localhost:3000",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+    ]
+}
+
 
 
 # HERE STARTS DYNACONF EXTENSION LOAD (Keep at the very bottom of settings.py)
