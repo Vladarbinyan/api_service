@@ -5,9 +5,9 @@ import MainMenu from "./components/Menu";
 import PageNotFound from "./components/PageNotFound";
 import Project from "./components/Project";
 import Todo from "./components/Todo";
-import LoginForm from "./components/Auth";
+import LoginForm from "./components/LoginForm";
 import axios from "axios";
-import {BrowserRouter, Route, Link, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Cookies from 'universal-cookie';
 
 
@@ -17,22 +17,24 @@ const get_url = (url) => `${DOMAIN}${url}`
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.logout = this.logout.bind(this);
         this.state = {
             'users': [],
             'projects': [],
             'todo': [],
             'token': '',
+            'username': '',
         }
     }
 
     set_token(token) {
         const cookies = new Cookies()
         cookies.set('token', token)
-        this.setState({'token': token})
+        this.setState({'token': token}, () => this.load_data())
     }
 
     is_authenticated() {
-        return this.state.token != ''
+        return this.state.token !== ''
     }
 
     logout() {
@@ -42,7 +44,7 @@ class App extends React.Component {
     get_token_from_storage() {
         const cookies = new Cookies()
         const token = cookies.get('token')
-        this.setState({'token': token})
+        this.setState({'token': token}, () => this.load_data())
     }
 
     get_token(username, password) {
@@ -52,61 +54,55 @@ class App extends React.Component {
             }).catch(error => alert('Bad login or password!'))
     }
 
+    get_headers() {
+        let headers = {
+            'Content-Type': 'application/json'
+        }
+        if (this.is_authenticated()) {
+            headers['Authorization'] = 'Token ' + this.state.token
+        }
+        return headers
+    }
+
+
     load_data() {
-        axios.get(get_url('/api/users/'))
+        const headers = this.get_headers()
+        axios.get(get_url('/api/users/'), {headers})
             .then(response => {
-                    console.log(response.data)
-                    const users = response.data
-                    this.setState(
-                        {
-                            'users': users.results,
-                        }
-                    )
-                }
-            ).catch(error => console.log(error))
+                this.setState({'users': response.data.results})
+                console.log(response)
+            }).catch(error => {console.log(error)
+            this.setState({'users': []})
+            })
 
-        axios.get(get_url('/api/projects/'))
+        axios.get(get_url('/api/projects/'), {headers})
             .then(response => {
-                const projects = response.data
-                this.setState(
-                    {
-                        'projects': projects.results
-                    }
-                )
-            }).catch(error => console.log(error))
+                this.setState({'projects': response.data.results})
+            }).catch(error => {console.log(error)
+            this.setState({'projects': []})
+            })
 
-        axios.get(get_url('/api/todo/'))
+        axios.get(get_url('/api/todo/'), {headers})
             .then(response => {
-                const todo = response.data
-                this.setState(
-                    {
-                        'todo': todo.results
-                    }
-                )
-            }).catch(error => console.log(error))
+                this.setState({'todo': response.data.results})
+            }).catch(error => {console.log(error)
+            this.setState({'todo': []})
+            })
+
 
     }
 
 
-    async componentDidMount() {
+    componentDidMount() {
         this.get_token_from_storage()
-        this.load_data()
     }
 
     render() {
         return (
             <div>
                 <BrowserRouter>
-                    <nav>
-                        <ul>
-                            <li>
-                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Logout</button> :
-                                    <Link to='/login'>Login</Link>}
-                            </li>
-                        </ul>
-                    </nav>
                     <div>
-                        <MainMenu selected_key={"1"}/>
+                        <MainMenu default_key={"1"} is_authenticated={this.is_authenticated()} logout={this.logout}/>
                     </div>
                     <Switch>
                         <Route exact path='/' component={() => <User users={this.state.users}/>}/>
