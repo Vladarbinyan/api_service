@@ -27,10 +27,11 @@ class App extends React.Component {
         }
     }
 
-    set_token(token) {
+    set_token(token, username) {
         const cookies = new Cookies()
         cookies.set('token', token)
-        this.setState({'token': token}, () => this.load_data())
+        cookies.set('username', username)
+        this.setState({'token': token, 'username': username}, () => this.load_data())
     }
 
     is_authenticated() {
@@ -38,19 +39,20 @@ class App extends React.Component {
     }
 
     logout() {
-        this.set_token('')
+        this.set_token('', '')
     }
 
     get_token_from_storage() {
         const cookies = new Cookies()
         const token = cookies.get('token')
-        this.setState({'token': token}, () => this.load_data())
+        const username = cookies.get('username')
+        this.setState({'token': token, 'username': username}, () => this.load_data())
     }
 
     get_token(username, password) {
         axios.post(get_url('/api-token-auth/'), {username: username, password: password})
             .then(response => {
-                this.set_token(response.data['token'])
+                this.set_token(response.data['token'], username)
             }).catch(error => alert('Bad login or password!'))
     }
 
@@ -70,7 +72,6 @@ class App extends React.Component {
         axios.get(get_url('/api/users/'), {headers})
             .then(response => {
                 this.setState({'users': response.data.results})
-                console.log(response)
             }).catch(error => {console.log(error)
             this.setState({'users': []})
             })
@@ -102,7 +103,7 @@ class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        <MainMenu default_key={"1"} is_authenticated={this.is_authenticated()} logout={this.logout}/>
+                        <MainMenu default_key={"1"} is_authenticated={this.is_authenticated()} logout={this.logout} username={this.state.username}/>
                     </div>
                     <Switch>
                         <Route exact path='/' component={() => <User users={this.state.users}/>}/>

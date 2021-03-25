@@ -20,7 +20,7 @@ class MainMenu extends React.Component {
                     <Menu.Item key="2"><Link to='/projects'>Projects</Link></Menu.Item>
                     <Menu.Item key="3"><Link to='/todo'>TODO</Link></Menu.Item>
                     <Menu.Item style={{float: 'right'}} key="4">{this.props.is_authenticated ?
-                        <Link onClick={() => this.logout()}>Logout</Link> :
+                        <Link onClick={() => this.logout()}>Logout ({this.props.username})</Link> :
                         <Link to='/login'>Login</Link>}
                     </Menu.Item>
 
