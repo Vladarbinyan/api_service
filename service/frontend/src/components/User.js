@@ -3,7 +3,7 @@ import {Table} from "antd";
 const { Column } = Table;
 
 
-const UserList = ({users}) => {
+const User = ({users}) => {
     return (
         <Table dataSource={users}>
             <Column title="Username" dataIndex="username" key="username"/>
@@ -14,4 +14,4 @@ const UserList = ({users}) => {
     )
 }
 
-export default UserList
+export default User
