@@ -1,10 +1,10 @@
 # Create your views here.
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import permissions
 from todo_app.serializers import ProjectSerializer, TodoSerializer
 from todo_app.models import Project, Todo
 from .filters import ProjectFilter, TodoFilter
-
 
 
 class ProjectLimitOffsetPagination(LimitOffsetPagination):
@@ -22,9 +22,8 @@ class ProjectModelViewSet(ModelViewSet):
     pagination_class = ProjectLimitOffsetPagination
 
 
-
-
 class TodoModelViewSet(ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     filterset_class = TodoFilter

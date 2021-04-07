@@ -5,7 +5,7 @@ const {Content} = Layout;
 const PageNotFound = ({location}) => {
     return (
         <Content style={{textAlign: 'center'}}>
-                <div>Page '{location.pathname}' not found!</div>
+                <h1>Page '{location.pathname}' not found!</h1>
         </Content>
     )
 }
