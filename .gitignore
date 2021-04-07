@@ -7,3 +7,6 @@ npx
 service/antd-demo
 migrations/
 service/frontend/.gitignore
+service/frontend/package.json
+service/frontend/package-lock.json
+service/frontend/node_modules
