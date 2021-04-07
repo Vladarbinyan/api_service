@@ -10,3 +10,4 @@ service/frontend/.gitignore
 service/frontend/package.json
 service/frontend/package-lock.json
 service/frontend/node_modules
+/service/test_request.py

@@ -15,22 +15,22 @@ class Command(BaseCommand):
         total = kwargs['total']
         admin = kwargs['admin']
         for i in range(total):
+            password = User.objects.make_random_password()
             if admin:
-                user = User(
+                user = User.objects.create_superuser(
                     username=person.username(),
                     first_name=person.first_name(),
                     last_name=person.last_name(),
                     email=person.email(),
-                    is_superuser=True,
+                    password=password,
                 )
-                user.save()
-                print(f'Create new Superuser: {user}')
+                print(f'Create new Superuser: {user} and password: {password}')
             else:
-                user = User(
+                user = User.objects.create_user(
                     username=person.username(),
                     first_name=person.first_name(),
                     last_name=person.last_name(),
                     email=person.email(),
+                    password=password,
                 )
-                user.save()
-                print(f'Create new user: {user}')
+                print(f'Create new user: {user} and password: {password}')
