@@ -57,19 +57,4 @@ class TestUserViewSet(TestCase):
                               )
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_edit_admin(self):
-        user = User.objects.create_user(username='Boryan99', first_name='Boris', last_name='Ivanov', email='ccc@vvv.ru',
-                                        )
-        client = APIClient()
-        admin = User.objects.create_superuser(username='su', first_name='Admin', last_name='admin',
-                                              email='superuser@admin.com', password='superuser123456')
-        client.login(username='su', password='superuser123456')
 
-        response = client.put(f'/api/users/{user.uuid}/', username='Bor9977', first_name='Boris', last_name='Petrov',
-                              email='ccc@vvv.ru',
-                              )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        user = User.objects.get(uuid=user.uuid)
-        self.assertEqual(user.username, 'Bor9977')
-        self.assertEqual(user.last_name, 'Petrov')
-        client.logout()

@@ -29,6 +29,12 @@ class ProjectSerializer(ModelSerializer):
         return ret
 
 
+class TodoSerializerBase(ModelSerializer):
+    class Meta:
+        model = Todo
+        fields = ['project', 'user', 'todo', 'text', 'is_active', 'create_date', 'update_date', ]
+
+
 class TodoSerializer(ModelSerializer):
     project = ProjectSerializer()
     user = UserSerializer()
