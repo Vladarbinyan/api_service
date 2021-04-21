@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework.exceptions import ValidationError
 from .models import User
+
 import logging
 
 logger = logging.getLogger('service_log')
@@ -18,3 +19,6 @@ class UserModelSerializer(ModelSerializer):
             if raise_exception:
                 raise ValidationError(self.errors)
         return ret
+
+
+
