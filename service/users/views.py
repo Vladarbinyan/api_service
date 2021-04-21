@@ -1,6 +1,6 @@
 from rest_framework.pagination import LimitOffsetPagination
 from users.models import User
-from users.serializers import UserModelSerializer
+from users.serializers import UserModelSerializer, UserModelSerializerSecond
 from rest_framework import mixins, viewsets, generics
 from rest_framework import permissions
 
@@ -16,5 +16,11 @@ class UserMixinViews(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Upda
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
     pagination_class = UsersLimitOffsetPagination
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return UserModelSerializerSecond
+        return UserModelSerializer
+
 
 

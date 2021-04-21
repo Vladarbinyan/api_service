@@ -10,7 +10,7 @@ logger = logging.getLogger('service_log')
 class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ('username', 'first_name', 'last_name', 'email')
 
     def is_valid(self, raise_exception=False):
         ret = super(UserModelSerializer, self).is_valid(False)
@@ -21,4 +21,15 @@ class UserModelSerializer(ModelSerializer):
         return ret
 
 
+class UserModelSerializerSecond(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'is_superuser', 'is_staff')
 
+    def is_valid(self, raise_exception=False):
+        ret = super(UserModelSerializerSecond, self).is_valid(False)
+        if self._errors:
+            logger.warning("Serialization failed due to {}".format(self.errors))
+            if raise_exception:
+                raise ValidationError(self.errors)
+        return ret
