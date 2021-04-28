@@ -72,23 +72,34 @@ class App extends React.Component {
         axios.get(get_url('/api/users/'), {headers})
             .then(response => {
                 this.setState({'users': response.data.results})
-            }).catch(error => {console.log(error)
+            }).catch(error => {
+            console.log(error)
             this.setState({'users': []})
-            })
+        })
 
         axios.get(get_url('/api/projects/'), {headers})
             .then(response => {
                 this.setState({'projects': response.data.results})
-            }).catch(error => {console.log(error)
+            }).catch(error => {
+            console.log(error)
             this.setState({'projects': []})
-            })
+        })
 
         axios.get(get_url('/api/todo/'), {headers})
             .then(response => {
                 this.setState({'todo': response.data.results})
-            }).catch(error => {console.log(error)
+            }).catch(error => {
+            console.log(error)
             this.setState({'todo': []})
-            })
+        })
+    }
+
+    deleteProject(uuid) {
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/projects/${uuid}`, {headers})
+            .then(response => {
+                this.setState({projects: this.state.projects.filter((project) => project.uuid !== uuid)})
+            }).catch(error => console.log(error))
     }
 
 
@@ -101,12 +112,13 @@ class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        <MainMenu default_key={"1"} is_authenticated={this.is_authenticated()} logout={this.logout} username={this.state.username}/>
+                        <MainMenu default_key={"1"} is_authenticated={this.is_authenticated()} logout={this.logout}
+                                  username={this.state.username}/>
                     </div>
                     <Switch>
                         <Route exact path='/' component={() => <User users={this.state.users}/>}/>
                         <Route exact path='/users' component={() => <User users={this.state.users}/>}/>
-                        <Route exact path='/projects' component={() => <Project projects={this.state.projects}/>}/>
+                        <Route exact path='/projects' component={() => <Project projects={this.state.projects} deleteProject={(uuid)=>this.deleteProject(uuid)} />}/>
                         <Route exact path='/todo' component={() => <Todo todo={this.state.todo}/>}/>
                         <Route exact path='/login' component={() => <LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
