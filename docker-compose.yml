@@ -21,8 +21,11 @@ services:
       && python manage.py makemigrations users
       && python manage.py makemigrations todo_app
       && python manage.py migrate
+      && echo 'START GENERATE TEST DATA. REMOVE IT BEFORE USE'
       && python manage.py create_users -a 1
-      && python manage.py generate_data 20
+      && python manage.py create_users 10
+      && python manage.py generate_data 15
+      && echo 'END GENERATE TEST DATA. REMOVE IT BEFORE USE'
       && gunicorn service.wsgi -b 0.0.0.0:8080
       "
     depends_on:
