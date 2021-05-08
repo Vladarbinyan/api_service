@@ -18,7 +18,7 @@ class ProjectSerializer(ModelSerializer):
 
     class Meta:
         model = Project
-        exclude = ['uuid']
+        fields = '__all__'
 
     def is_valid(self, raise_exception=False):
         ret = super(ProjectSerializer, self).is_valid(False)
@@ -32,7 +32,7 @@ class ProjectSerializer(ModelSerializer):
 class TodoSerializerBase(ModelSerializer):
     class Meta:
         model = Todo
-        fields = ['project', 'user', 'todo', 'text', 'is_active', 'create_date', 'update_date', ]
+        fields = ['uuid', 'project', 'user', 'todo', 'text', 'is_active', 'create_date', 'update_date', ]
 
 
 class TodoSerializer(ModelSerializer):
@@ -41,7 +41,7 @@ class TodoSerializer(ModelSerializer):
 
     class Meta:
         model = Todo
-        fields = ['project', 'user', 'todo', 'text', 'is_active', 'create_date', 'update_date', ]
+        fields = ['uuid', 'project', 'user', 'todo', 'text', 'is_active', 'create_date', 'update_date', ]
 
     def is_valid(self, raise_exception=False):
         ret = super(TodoSerializer, self).is_valid(False)
