@@ -9,7 +9,7 @@ from uuid import uuid4
 class Project(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
     title = models.CharField(max_length=64)
-    repository = models.CharField(max_length=2084)
+    repository = models.TextField(max_length=2084)
     text = models.TextField(max_length=4096)
     users = models.ManyToManyField(User)
 
@@ -21,7 +21,7 @@ class Todo(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    todo = models.CharField(max_length=128)
+    todo = models.CharField(max_length=64)
     text = models.TextField(max_length=512, blank=True)
     is_active = models.BooleanField(default=True)
     create_date = models.DateTimeField(auto_now_add=True)

@@ -23,8 +23,6 @@ class MainMenu extends React.Component {
                         <Link onClick={() => this.logout()}>Logout ({this.props.username})</Link> :
                         <Link to='/login'>Login</Link>}
                     </Menu.Item>
-
-
                 </Menu>
             </Header>
         );

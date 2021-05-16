@@ -16,7 +16,7 @@ class Command(BaseCommand):
         text = Text()
         total = kwargs['total']
         for i in range(total):
-            project = Project(title=text.title(), repository=internet.home_page(), text=text.text(quantity=5))
+            project = Project(title=text.title(), repository=internet.home_page(), text=text.words(quantity=5))
             project.save()
             random_user_list = []
             for _ in range(random.randint(1, 5)):
